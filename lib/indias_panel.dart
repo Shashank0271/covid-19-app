@@ -9,7 +9,7 @@ class IndiasPanel extends StatelessWidget {
       {@required this.activeCases,
       @required this.todayCases,
       @required this.todayDeaths,
-      this.todayRecovered});
+      @required this.todayRecovered});
 
   @override
   Widget build(BuildContext context) {
