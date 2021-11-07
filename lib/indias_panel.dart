@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class IndiasPanel extends StatelessWidget {
+class IndiaPanel extends StatelessWidget {
   final String? activeCases;
   final String? todayCases;
   final String? todayDeaths;
   final String? todayRecovered;
-  const IndiasPanel(
-      {@required this.activeCases,
-      @required this.todayCases,
+  const IndiaPanel(
+      {@required this.todayCases,
       @required this.todayDeaths,
+      @required this.activeCases,
       @required this.todayRecovered});
 
   @override

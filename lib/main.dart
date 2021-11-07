@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  IndiasPanel(
+                  IndiaPanel(
                     activeCases: indiaData!['active'].toString(),
                     todayCases: indiaData!['todayCases'].toString(),
                     todayDeaths: indiaData!['todayDeaths'].toString(),
