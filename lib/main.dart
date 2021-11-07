@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void getResponse(String toParse) async {
     decodedStuff = await NetworkHelper(parseThis: toParse).getData();
-    indiaData = await NetworkHelper(parseThis: countryLink).getData();
+    indiaData = await NetworkHelper(parseThis: countryLink).getData().;
     setState(() {});
   }
 
@@ -82,7 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               leading: const Icon(FontAwesomeIcons.searchLocation),
               title: const Text('Regional'),
-              onTap: () {},
+              onTap: () {
+                //TODO : create and navigate to Regional Page
+              },
             ),
             const SizedBox(height: 20),
             ListTile(
