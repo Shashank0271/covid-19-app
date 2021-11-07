@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'indias_panel.dart';
 import 'network_helper.dart';
+import 'package:covid_tracker/wwstatus_panel.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 const worldWideLink = "https://disease.sh/v3/covid-19/all";
+const countryLink =
+    "https://disease.sh/v3/covid-19/countries/India?yesterday=true";
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,25 +32,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  NetworkHelper? networkHelper;
   Map? decodedStuff;
+  Map? indiaData;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    networkHelper = NetworkHelper(parseThis: worldWideLink);
-    getResponse();
+    getResponse(worldWideLink);
   }
 
-  void getResponse() async {
-    decodedStuff = await networkHelper!.getData();
+  void getResponse(String toParse) async {
+    decodedStuff = await NetworkHelper(parseThis: toParse).getData();
+    indiaData = await NetworkHelper(parseThis: countryLink).getData();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -61,9 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const SizedBox(height: 20),
-            const DrawerHeader(child: Text("INSERT IMAGE HERE")),
-            const SizedBox(height: 12),
+            const Image(
+              image: AssetImage('images/virus.png'),
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 8),
             ListTile(
               leading: const Icon(Icons.map_rounded),
               title: const Text('World-Wide'),
@@ -80,13 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: decodedStuff == null
-          ? const Center(child: CircularProgressIndicator())
+      body: decodedStuff == null || indiaData == null
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: Colors.teal,
+            ))
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  const SizedBox(height: 24),
                   GridView(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -116,56 +124,31 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 8),
+                  IndiasPanel(
+                    activeCases: indiaData!['active'].toString(),
+                    todayCases: indiaData!['todayCases'].toString(),
+                    todayDeaths: indiaData!['todayDeaths'].toString(),
+                    todayRecovered: indiaData!['todayRecovered'].toString(),
+                  ),
                   ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          decodedStuff = null;
-                          getResponse();
-                        });
-                      },
-                      child: const Text("refresh"),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 3.5,
-                        primary: Colors.blueGrey,
-                      )),
+                    onPressed: () {
+                      setState(() {
+                        decodedStuff = null;
+                        indiaData = null;
+                        getResponse(worldWideLink);
+                        getResponse(countryLink);
+                      });
+                    },
+                    child: const Text("refresh"),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3.5,
+                      primary: Colors.blueGrey,
+                    ),
+                  ),
                 ],
               ),
             ),
-    );
-  }
-}
-
-class StatusPanel extends StatelessWidget {
-  final String? panelTitle;
-  final String? displayCount;
-  const StatusPanel({Key? key, this.panelTitle, this.displayCount})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      borderRadius: const BorderRadius.all(Radius.circular(25)),
-      elevation: 2,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(25)),
-          color: Colors.blueGrey,
-          border: Border.all(color: Colors.tealAccent, width: 2),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              panelTitle!,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 15),
-            Text(displayCount!,
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
     );
   }
 }
