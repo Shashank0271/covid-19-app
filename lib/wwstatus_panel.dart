@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const csty = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
-
 class StatusPanel extends StatelessWidget {
   final String? panelTitle;
   final String? displayCount;
   const StatusPanel({Key? key, this.panelTitle, this.displayCount})
       : super(key: key);
+  TextStyle applyStyle(double size) => TextStyle(
+        fontSize: size,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Dongle',
+      );
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -24,12 +28,12 @@ class StatusPanel extends StatelessWidget {
           children: [
             Text(
               panelTitle!,
-              style: csty,
+              style: applyStyle(27),
             ),
             const SizedBox(height: 15),
             Text(
               displayCount!,
-              style: csty,
+              style: applyStyle(21),
             ),
           ],
         ),

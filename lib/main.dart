@@ -83,20 +83,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             mainAxisSpacing: 15),
                     children: [
                       StatusPanel(
-                        panelTitle: "active cases",
+                        panelTitle: "Active cases",
                         displayCount: decodedStuff!['active'].toString(),
                       ),
                       StatusPanel(
-                        panelTitle: "today's deaths",
+                        panelTitle: "Today's deaths",
                         displayCount: decodedStuff!['todayDeaths'].toString(),
                       ),
                       StatusPanel(
-                        panelTitle: "cases per million",
+                        panelTitle: "Cases per million",
                         displayCount:
                             decodedStuff!['casesPerOneMillion'].toString(),
                       ),
                       StatusPanel(
-                        panelTitle: "affected countries",
+                        panelTitle: "Affected countries",
                         displayCount:
                             decodedStuff!['affectedCountries'].toString(),
                       ),

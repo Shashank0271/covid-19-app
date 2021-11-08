@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-const sty = TextStyle(
-  color: Colors.white,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'Dongle',
-);
-
 class IndiaPanel extends StatelessWidget {
   final String? activeCases;
   final String? todayCases;
@@ -17,6 +11,13 @@ class IndiaPanel extends StatelessWidget {
       @required this.activeCases,
       @required this.todayRecovered});
 
+  TextStyle applyStyle(double size) => TextStyle(
+        fontSize: size,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Dongle',
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,29 +25,21 @@ class IndiaPanel extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 12.0, bottom: 3),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
+            Text(
               "Cases in India",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Dongle',
-                fontSize: 20,
-              ),
+              style: applyStyle(30),
             ),
 
             /// #1 active cases
             SizedBox(
               width: double.infinity,
               child: Text(
-                'active cases : $activeCases',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Active cases : $activeCases',
+                style: applyStyle(21),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -55,11 +48,8 @@ class IndiaPanel extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'today\'s cases : $todayCases',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Today\'s cases : $todayCases',
+                style: applyStyle(21),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -68,11 +58,8 @@ class IndiaPanel extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'today\'s deaths: $todayDeaths',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Today\'s deaths: $todayDeaths',
+                style: applyStyle(21),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -81,11 +68,8 @@ class IndiaPanel extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'today\'s recoveries: $todayRecovered',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Today\'s recoveries: $todayRecovered',
+                style: applyStyle(21),
                 textAlign: TextAlign.start,
               ),
             ),
