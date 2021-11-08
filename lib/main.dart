@@ -5,6 +5,7 @@ import 'indias_panel.dart';
 import 'network_helper.dart';
 import 'package:covid_tracker/wwstatus_panel.dart';
 import 'package:covid_tracker/regional.dart';
+import 'package:covid_tracker/my_drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,43 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 2.5,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              height: 250,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage('images/cv19Nurse.jpg'),
-                fit: BoxFit.cover,
-              )),
-            ),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.map_rounded),
-              title: const Text('World-Wide'),
-              onTap: () {},
-            ),
-            const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.searchLocation),
-              title: const Text('Regional'),
-              onTap: () {
-                //TODO : create and navigate to Regional Page
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Regional()));
-              },
-            ),
-            const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.fileMedical),
-              title: const Text('Check vaccination slot'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+      drawer: const MyDrawer(),
       body: decodedStuff == null || indiaData == null
           ? const Center(
               child: CircularProgressIndicator(
