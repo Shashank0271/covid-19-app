@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const sty = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'Dongle',
+);
+
 class IndiaPanel extends StatelessWidget {
   final String? activeCases;
   final String? todayCases;
@@ -27,6 +33,7 @@ class IndiaPanel extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Dongle',
                 fontSize: 20,
               ),
             ),

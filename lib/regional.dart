@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_tracker/network_helper.dart';
-
 import 'my_drawer.dart';
 
 class Regional extends StatefulWidget {
@@ -26,23 +25,28 @@ class _RegionalState extends State<Regional> {
           elevation: 2.5,
         ),
         drawer: const MyDrawer(),
-        body: FutureBuilder(
-          future: NetworkHelper(parseThis: cDataLink).getData(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            final info = snapshot.data;
-            return snapshot.data == null
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: info.length,
-                    itemBuilder: (context, index) {
-                      return CountryTile(
-                        index: index,
-                        info: info,
-                      );
-                    },
-                  );
-          },
+        body: Scrollbar(
+          child: FutureBuilder(
+            future: NetworkHelper(parseThis: cDataLink).getData(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              final info = snapshot.data;
+              return snapshot.data == null
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: Colors.teal,
+                    ))
+                  : ListView.builder(
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: info.length,
+                      itemBuilder: (context, index) {
+                        return CountryTile(
+                          index: index,
+                          info: info,
+                        );
+                      },
+                    );
+            },
+          ),
         ));
   }
 }
@@ -60,7 +64,7 @@ class CountryTile extends StatelessWidget {
       elevation: 2.5,
       color: Colors.blueGrey[600],
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        padding: const EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
@@ -75,7 +79,6 @@ class CountryTile extends StatelessWidget {
               children: [
                 Text(
                   info[index]['country'],
-                  textAlign: TextAlign.start,
                   style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),

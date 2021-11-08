@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const csty = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+
 class StatusPanel extends StatelessWidget {
   final String? panelTitle;
   final String? displayCount;
@@ -22,14 +24,12 @@ class StatusPanel extends StatelessWidget {
           children: [
             Text(
               panelTitle!,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style: csty,
             ),
             const SizedBox(height: 15),
             Text(
               displayCount!,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style: csty,
             ),
           ],
         ),
