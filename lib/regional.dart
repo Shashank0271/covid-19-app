@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_tracker/network_helper.dart';
 
@@ -11,12 +12,13 @@ class Regional extends StatefulWidget {
 }
 
 const cDataLink =
-    "https://disease.sh/v3/covid-19/countries?yesterday=true&sort=cases";
+    "https://disease.sh/v3/covid-19/countries?yesterday=true&sort=active";
 
 class _RegionalState extends State<Regional> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[900],
         appBar: AppBar(
           title: const Text("Regional"),
           centerTitle: true,
@@ -54,8 +56,11 @@ class CountryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.teal[900],
+      elevation: 2.5,
+      color: Colors.blueGrey[600],
       child: Container(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
@@ -65,7 +70,25 @@ class CountryTile extends StatelessWidget {
               width: 60,
             ),
             const SizedBox(width: 20),
-            Text(info[index]['country']),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  info[index]['country'],
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'active cases : ${info[index]['active'].toString()}',
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                Text('today\'s cases : ${info[index]['todayCases'].toString()}',
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold))
+              ],
+            ),
           ],
         ),
       ),
