@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'indias_panel.dart';
 import 'network_helper.dart';
 import 'package:covid_tracker/wwstatus_panel.dart';
+import 'package:covid_tracker/regional.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void getResponse(String toParse) async {
     decodedStuff = await NetworkHelper(parseThis: toParse).getData();
-    indiaData = await NetworkHelper(parseThis: countryLink).getData().;
+    indiaData = await NetworkHelper(parseThis: countryLink).getData();
     setState(() {});
   }
 
@@ -84,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Regional'),
               onTap: () {
                 //TODO : create and navigate to Regional Page
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Regional()));
               },
             ),
             const SizedBox(height: 20),
