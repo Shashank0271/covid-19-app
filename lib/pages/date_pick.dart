@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiver/time.dart';
-import 'package:covid_tracker/my_drawer.dart';
+import 'package:covid_tracker/widgets/my_drawer.dart';
 
 class DatePickPage extends StatefulWidget {
   const DatePickPage({Key? key}) : super(key: key);

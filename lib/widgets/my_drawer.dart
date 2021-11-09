@@ -1,7 +1,7 @@
-import 'package:covid_tracker/main.dart';
-import 'package:covid_tracker/regional.dart';
+import 'package:covid_tracker/pages/home_page.dart';
+import 'package:covid_tracker/pages/regional.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_tracker/date_pick.dart';
+import 'package:covid_tracker/pages/date_pick.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(Icons.map_rounded),
             title: const Text('World-Wide'),
             onTap: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const MyHomePage()));
             },
           ),
@@ -35,7 +35,7 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(FontAwesomeIcons.searchLocation),
             title: const Text('Regional'),
             onTap: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const Regional()));
             },
           ),
@@ -44,7 +44,7 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(FontAwesomeIcons.fileMedical),
             title: const Text('Check vaccination slot'),
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const DatePickPage()));

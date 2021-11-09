@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_tracker/network_helper.dart';
-import 'my_drawer.dart';
+import 'package:covid_tracker/resources/network_helper.dart';
+import '../widgets/my_drawer.dart';
 
 class Regional extends StatefulWidget {
   const Regional({Key? key}) : super(key: key);
