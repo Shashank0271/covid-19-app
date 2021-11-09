@@ -27,7 +27,6 @@ class IndiaPanel extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 12.0, bottom: 3),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               "Cases in India",

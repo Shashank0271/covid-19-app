@@ -1,6 +1,7 @@
 import 'package:covid_tracker/main.dart';
 import 'package:covid_tracker/regional.dart';
 import 'package:flutter/material.dart';
+import 'package:covid_tracker/date_pick.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -34,15 +35,20 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(FontAwesomeIcons.searchLocation),
             title: const Text('Regional'),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Regional()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Regional()));
             },
           ),
           const SizedBox(height: 20),
           ListTile(
             leading: const Icon(FontAwesomeIcons.fileMedical),
             title: const Text('Check vaccination slot'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DatePickPage()));
+            },
           ),
         ],
       ),

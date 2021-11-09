@@ -8,7 +8,7 @@ class NetworkHelper {
     http.Response response = await http.get(Uri.parse(parseThis!));
     if (response.statusCode == 200) {
       var decodedStuff = jsonDecode(response.body);
-      print(decodedStuff);
+      // print(decodedStuff);
       return decodedStuff;
     }
   }
