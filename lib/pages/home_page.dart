@@ -21,11 +21,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    getResponse(worldWideLink);
+    getResponse();
   }
 
-  void getResponse(String toParse) async {
-    decodedStuff = await NetworkHelper(parseThis: toParse).getData();
+  void getResponse() async {
+    decodedStuff = await NetworkHelper(parseThis: worldWideLink).getData();
     indiaData = await NetworkHelper(parseThis: countryLink).getData();
     setState(() {});
   }
@@ -96,8 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       setState(() {
                         decodedStuff = null;
                         indiaData = null;
-                        getResponse(worldWideLink);
-                        getResponse(countryLink);
+                        getResponse();
                       });
                     },
                     child: const Text("refresh"),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiver/time.dart';
 import 'package:covid_tracker/widgets/my_drawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:covid_tracker/resources/network_helper.dart';
 
 class DatePickPage extends StatefulWidget {
   const DatePickPage({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class _DatePickPageState extends State<DatePickPage> {
   final DateTime _currentTime = DateTime.now();
   final TextEditingController _textEditingController = TextEditingController();
   late String formedDate;
+  late var slotResponse;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,6 @@ class _DatePickPageState extends State<DatePickPage> {
                     height: 250,
                   ),
                   const SizedBox(height: 12),
-                  //TODO : Make a TextField to enter the pin
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: TextField(
@@ -59,40 +62,90 @@ class _DatePickPageState extends State<DatePickPage> {
                       ),
                     ),
                   ),
-                  Text(
-                    _dateTime == null
-                        ? ' Nothing has been picked yet'
-                        : formedDate,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      showDatePicker(
-                              context: context,
-                              initialDate: _dateTime ?? _currentTime,
-                              firstDate: DateTime(_currentTime.year,
-                                  _currentTime.month, _currentTime.day),
-                              lastDate: DateTime(
-                                  _currentTime.year,
-                                  _currentTime.month,
-                                  daysInMonth(
-                                      _currentTime.year, _currentTime.month)))
-                          .then((value) {
-                        setState(() {
-                          _dateTime = value;
-                          formedDate =
-                              '${_dateTime!.day}-${_dateTime!.month}-${_dateTime!.year}';
-                        });
-                      });
-                    },
-                    child: const Text(
-                      'pick a date',
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            showDatePicker(
+                                    context: context,
+                                    initialDate: _dateTime ?? _currentTime,
+                                    firstDate: DateTime(_currentTime.year,
+                                        _currentTime.month, _currentTime.day),
+                                    lastDate: DateTime(
+                                        _currentTime.year,
+                                        _currentTime.month,
+                                        daysInMonth(_currentTime.year,
+                                            _currentTime.month)))
+                                .then((value) {
+                              setState(() {
+                                _dateTime = value;
+                                formedDate =
+                                    '${_dateTime!.day}-${_dateTime!.month}-${_dateTime!.year}';
+                              });
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shadowColor: Colors.grey,
+                            primary: Colors.teal,
+                            onPrimary: Colors.grey.shade900,
+                          ),
+                          child: const Text(
+                            'pick a date',
+                          ),
+                        ),
+                        Text(
+                          _dateTime == null ? ' ' : formedDate,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        const SizedBox(),
+                      ],
                     ),
                   ),
+                  const SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    icon: const Icon(
+                      FontAwesomeIcons.arrowRight,
+                      size: 13,
+                    ),
+                    label: const Text('Check availability'),
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.grey,
+                      primary: Colors.teal,
+                      onPrimary: Colors.grey.shade900,
+                    ),
+                    onPressed: () async {
+                      if (_textEditingController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Enter pin')));
+                      } else if (_dateTime == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Pick a date'),
+                        ));
+                      } else {
+                        //TODO : RESPONSE CODE 400
+                        // String parseThis =
+                        //     "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${_textEditingController.text}&$formedDate";
+                        // var networkHelper = NetworkHelper(parseThis: parseThis);
+                        // await networkHelper.getData();
+                        getResponse();
+                      }
+                    },
+                  )
                 ],
               ),
             ),
           ),
         ));
+  }
+
+  void getResponse() async {
+    String parseThis =
+        "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${_textEditingController.text}&date=$formedDate";
+    NetworkHelper netWorkHelper = NetworkHelper(parseThis: parseThis);
+    slotResponse = await netWorkHelper.getData();
   }
 }
