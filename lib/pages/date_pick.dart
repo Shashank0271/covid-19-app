@@ -11,6 +11,8 @@ class DatePickPage extends StatefulWidget {
   State<DatePickPage> createState() => _DatePickPageState();
 }
 
+const _snackBarDuration = Duration(seconds: 3);
+
 class _DatePickPageState extends State<DatePickPage> {
   DateTime? _dateTime;
   final DateTime _currentTime = DateTime.now();
@@ -118,19 +120,18 @@ class _DatePickPageState extends State<DatePickPage> {
                     ),
                     onPressed: () async {
                       if (_textEditingController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Enter pin')));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Enter pin'),
+                          duration: _snackBarDuration,
+                        ));
                       } else if (_dateTime == null) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Pick a date'),
+                          duration: _snackBarDuration,
                         ));
                       } else {
-                        //TODO : RESPONSE CODE 400
-                        // String parseThis =
-                        //     "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${_textEditingController.text}&$formedDate";
-                        // var networkHelper = NetworkHelper(parseThis: parseThis);
-                        // await networkHelper.getData();
                         getResponse();
                       }
                     },
@@ -147,5 +148,13 @@ class _DatePickPageState extends State<DatePickPage> {
         "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${_textEditingController.text}&date=$formedDate";
     NetworkHelper netWorkHelper = NetworkHelper(parseThis: parseThis);
     slotResponse = await netWorkHelper.getData();
+    if (slotResponse == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Invalid Pin'),
+          duration: _snackBarDuration,
+        ),
+      );
+    }
   }
 }
