@@ -155,6 +155,8 @@ class _DatePickPageState extends State<DatePickPage> {
           duration: _snackBarDuration,
         ),
       );
+    } else {
+      print(slotResponse);
     }
   }
 }
