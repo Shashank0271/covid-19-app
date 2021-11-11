@@ -3,6 +3,7 @@ import 'package:quiver/time.dart';
 import 'package:covid_tracker/widgets/my_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:covid_tracker/resources/network_helper.dart';
+import 'vlist.dart';
 
 class DatePickPage extends StatefulWidget {
   const DatePickPage({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _DatePickPageState extends State<DatePickPage> {
   final DateTime _currentTime = DateTime.now();
   final TextEditingController _textEditingController = TextEditingController();
   late String formedDate;
-  late var slotResponse;
+  Map? slotResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,9 @@ class _DatePickPageState extends State<DatePickPage> {
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                       decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.tealAccent, width: 2.0)),
+                        // enabledBorder: OutlineInputBorder(
+                        //     borderSide: BorderSide(
+                        //         color: Colors.tealAccent, width: 2.0)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Colors.tealAccent, width: 2.0)),
@@ -132,7 +133,14 @@ class _DatePickPageState extends State<DatePickPage> {
                           duration: _snackBarDuration,
                         ));
                       } else {
-                        getResponse();
+                        //TODO : add loader and navigation
+                        await getResponse();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SVlist(
+                                      data: slotResponse!['sessions'],
+                                    )));
                       }
                     },
                   )
@@ -143,7 +151,7 @@ class _DatePickPageState extends State<DatePickPage> {
         ));
   }
 
-  void getResponse() async {
+  Future<Map?> getResponse() async {
     String parseThis =
         "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${_textEditingController.text}&date=$formedDate";
     NetworkHelper netWorkHelper = NetworkHelper(parseThis: parseThis);
@@ -157,6 +165,7 @@ class _DatePickPageState extends State<DatePickPage> {
       );
     } else {
       print(slotResponse);
+      return slotResponse;
     }
   }
 }
