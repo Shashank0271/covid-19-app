@@ -84,27 +84,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 18),
                   IndiaPanel(
                     activeCases: indiaData!['active'].toString(),
                     todayCases: indiaData!['todayCases'].toString(),
                     todayDeaths: indiaData!['todayDeaths'].toString(),
                     todayRecovered: indiaData!['todayRecovered'].toString(),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        decodedStuff = null;
-                        indiaData = null;
-                        getResponse();
-                      });
-                    },
-                    child: const Text("refresh"),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 3.5,
-                      primary: Colors.blueGrey,
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       decodedStuff = null;
+                  //       indiaData = null;
+                  //       getResponse();
+                  //     });
+                  //   },
+                  //   child: const Text("refresh"),
+                  //   style: ElevatedButton.styleFrom(
+                  //     elevation: 3.5,
+                  //     primary: Colors.blueGrey,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
