@@ -91,20 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     todayDeaths: indiaData!['todayDeaths'].toString(),
                     todayRecovered: indiaData!['todayRecovered'].toString(),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       decodedStuff = null;
-                  //       indiaData = null;
-                  //       getResponse();
-                  //     });
-                  //   },
-                  //   child: const Text("refresh"),
-                  //   style: ElevatedButton.styleFrom(
-                  //     elevation: 3.5,
-                  //     primary: Colors.blueGrey,
-                  //   ),
-                  // ),
                 ],
               ),
             ),
