@@ -57,9 +57,6 @@ class _DatePickPageState extends State<DatePickPage> {
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
                         decoration: const InputDecoration(
-                          // enabledBorder: OutlineInputBorder(
-                          //     borderSide: BorderSide(
-                          //         color: Colors.tealAccent, width: 2.0)),
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.tealAccent, width: 2.0)),
@@ -136,7 +133,6 @@ class _DatePickPageState extends State<DatePickPage> {
                             duration: _snackBarDuration,
                           ));
                         } else {
-                          //TODO : add loader
                           setState(() {
                             _inAsyncCall = true;
                           });
@@ -144,12 +140,20 @@ class _DatePickPageState extends State<DatePickPage> {
                           setState(() {
                             _inAsyncCall = false;
                           });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SVlist(
-                                        data: slotResponse!['sessions'],
-                                      )));
+                          if (slotResponse!['sessions'].isNotEmpty) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SVlist(
+                                          data: slotResponse!['sessions'],
+                                        )));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('No sessions available'),
+                              duration: _snackBarDuration,
+                            ));
+                          }
                         }
                       },
                     )
@@ -167,6 +171,9 @@ class _DatePickPageState extends State<DatePickPage> {
     NetworkHelper netWorkHelper = NetworkHelper(parseThis: parseThis);
     slotResponse = await netWorkHelper.getData();
     if (slotResponse == null) {
+      setState(() {
+        _inAsyncCall = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Invalid Pin'),
@@ -174,7 +181,6 @@ class _DatePickPageState extends State<DatePickPage> {
         ),
       );
     } else {
-      print(slotResponse);
       return slotResponse;
     }
   }
