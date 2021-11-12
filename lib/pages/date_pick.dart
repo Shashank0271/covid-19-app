@@ -22,6 +22,7 @@ class _DatePickPageState extends State<DatePickPage> {
   late String formedDate;
   Map? slotResponse;
   bool _inAsyncCall = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
