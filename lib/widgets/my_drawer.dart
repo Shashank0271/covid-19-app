@@ -23,7 +23,7 @@ class MyDrawer extends StatelessWidget {
                 fit: BoxFit.cover,
               )),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             ListTile(
               leading: const Icon(Icons.map_rounded),
               title: const Text('World-Wide'),
