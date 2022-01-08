@@ -20,7 +20,13 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Colors.blueGrey[400],
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [Colors.blueGrey.withOpacity(0.7), Colors.blueGrey],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+        )),
+        //color: Colors.blueGrey[400],
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
