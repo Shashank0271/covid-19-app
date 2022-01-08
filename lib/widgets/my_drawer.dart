@@ -7,6 +7,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
+  Widget buildListTile(
+      IconData iconData, String titleText, VoidCallback onTapHandler) {
+    return ListTile(
+      leading: Icon(iconData),
+      title: Text(titleText),
+      onTap: onTapHandler,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,10 +33,10 @@ class MyDrawer extends StatelessWidget {
               )),
             ),
             const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(Icons.map_rounded),
-              title: const Text('World-Wide'),
-              onTap: () {
+            buildListTile(
+              Icons.map_rounded,
+              'World-wide',
+              () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -35,19 +44,19 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.searchLocation),
-              title: const Text('Regional'),
-              onTap: () {
+            buildListTile(
+              FontAwesomeIcons.searchLocation,
+              'Regional',
+              () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => const Regional()));
               },
             ),
             const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.fileMedical),
-              title: const Text('Check vaccination slot'),
-              onTap: () {
+            buildListTile(
+              FontAwesomeIcons.fileMedical,
+              'Check vaccination slot',
+              () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
