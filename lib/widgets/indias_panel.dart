@@ -21,7 +21,6 @@ class IndiaPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
       margin: const EdgeInsets.all(8),
       width: MediaQuery.of(context).size.width,
       child: Padding(

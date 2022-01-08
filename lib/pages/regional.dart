@@ -10,8 +10,7 @@ class Regional extends StatefulWidget {
   State<Regional> createState() => _RegionalState();
 }
 
-const cDataLink =
-    "https://disease.sh/v3/covid-19/countries?yesterday=true&sort=active";
+const cDataLink = "https://disease.sh/v3/covid-19/countries?yesterday=true";
 
 class _RegionalState extends State<Regional> {
   @override
